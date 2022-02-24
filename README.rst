@@ -6,6 +6,7 @@ Also finds diff lines that have violations (according to tools such
 as pycodestyle, pyflakes, flake8, or pylint).
 This is used as a code quality metric during code reviews.
 
+
 Overview
 --------
 
