@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "diff_cover"
-version = "6.4.4"
+name = "xiak_diff_cover"
+version = "1.0.0"
 description = "Run coverage and linting reports on diffs"
 authors = ["See Contributors"]
-homepage = "https://github.com/Bachmann1234/diff-cover"
-repository = "https://github.com/Bachmann1234/diff-cover"
+homepage = "https://github.com/xiak/diff-cover"
+repository = "https://github.com/xiak/diff-cover"
 license = "Apache 2.0"
 readme = "README.rst"
 classifiers=[
