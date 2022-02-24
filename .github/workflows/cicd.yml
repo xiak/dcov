@@ -1,8 +1,10 @@
 name: Publish to PyPI
 on:
-  release:
-    types: [push, pull_request, published]
-
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
 jobs:
   pypi_release:
     name: Builds Using Poetry and Publishes to PyPI
