@@ -462,6 +462,7 @@ Originally created with the support of `edX
 <https://github.com/edx>`_.
 
 
+
 .. |pypi-version| image:: https://img.shields.io/pypi/v/diff-cover.svg
     :target: https://pypi.org/project/diff-cover
     :alt: PyPI version
