@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "xiak_diff_cover"
+name = "x_diff_cover"
 version = "1.0.0"
 description = "Run coverage and linting reports on diffs"
 authors = ["See Contributors"]
-homepage = "https://github.com/xiak/diff-cover"
-repository = "https://github.com/xiak/diff-cover"
+homepage = "https://github.com/xiak/x_diff_cover"
+repository = "https://github.com/xiak/x_diff_cover"
 license = "Apache 2.0"
 readme = "README.rst"
 classifiers=[
@@ -25,7 +25,7 @@ classifiers=[
         "Topic :: Software Development :: Quality Assurance",
 ]
 packages = [
-    { include = "diff_cover" }
+    { include = "x_diff_cover" }
 ]
 include = [
     {path = 'templates/*.txt'},
