@@ -8,6 +8,6 @@ except ImportError:
         return pkg_resources.get_distribution(package).version
 
 
-VERSION = version("diff_cover")
+VERSION = version("dcov")
 DESCRIPTION = "Automatically find diff lines that need test coverage."
 QUALITY_DESCRIPTION = "Automatically find diff lines with quality violations."

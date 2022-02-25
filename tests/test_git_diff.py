@@ -4,8 +4,8 @@
 
 import pytest
 
-from diff_cover.command_runner import CommandError
-from diff_cover.git_diff import GitDiffTool
+from dcov.command_runner import CommandError
+from dcov.git_diff import GitDiffTool
 
 
 @pytest.fixture

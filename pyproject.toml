@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "x_diff_cover"
+name = "dcov"
 version = "1.0.0"
 description = "Run coverage and linting reports on diffs"
 authors = ["See Contributors"]
-homepage = "https://github.com/xiak/x_diff_cover"
-repository = "https://github.com/xiak/x_diff_cover"
+homepage = "https://github.com/xiak/dcov"
+repository = "https://github.com/xiak/dcov"
 license = "Apache 2.0"
-readme = "README.rst"
+readme = "README.md"
 classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
@@ -25,7 +25,7 @@ classifiers=[
         "Topic :: Software Development :: Quality Assurance",
 ]
 packages = [
-    { include = "diff_cover" }
+    { include = "dcov" }
 ]
 include = [
     {path = 'templates/*.txt'},
@@ -36,8 +36,8 @@ include = [
 ]
 
 [tool.poetry.scripts]
-diff-cover = 'diff_cover.diff_cover_tool:main'
-diff-quality = 'diff_cover.diff_quality_tool:main'
+dcov = 'dcov.diff_cover_tool:main'
+dcov-quality = 'dcov.diff_quality_tool:main'
 
 [tool.poetry.dependencies]
 python = "^3.6.2"

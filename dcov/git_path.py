@@ -4,7 +4,7 @@ Converter for `git diff` paths
 import os
 import sys
 
-from diff_cover.command_runner import execute
+from dcov.command_runner import execute
 
 
 class GitPathTool:

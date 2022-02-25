@@ -7,10 +7,10 @@ from textwrap import dedent
 
 import pytest
 
-from diff_cover.command_runner import CommandError
-from diff_cover.violationsreporters import base
-from diff_cover.violationsreporters.base import QualityReporter
-from diff_cover.violationsreporters.java_violations_reporter import (
+from dcov.command_runner import CommandError
+from dcov.violationsreporters import base
+from dcov.violationsreporters.base import QualityReporter
+from dcov.violationsreporters.java_violations_reporter import (
     CheckstyleXmlDriver,
     FindbugsXmlDriver,
     PmdXmlDriver,

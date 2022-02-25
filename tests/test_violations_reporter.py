@@ -19,10 +19,10 @@ from textwrap import dedent
 
 import pytest
 
-from diff_cover.command_runner import CommandError, run_command_for_code
-from diff_cover.violationsreporters import base
-from diff_cover.violationsreporters.base import QualityReporter
-from diff_cover.violationsreporters.violations_reporter import (
+from dcov.command_runner import CommandError, run_command_for_code
+from dcov.violationsreporters import base
+from dcov.violationsreporters.base import QualityReporter
+from dcov.violationsreporters.violations_reporter import (
     CppcheckDriver,
     EslintDriver,
     PylintDriver,

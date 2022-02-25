@@ -4,7 +4,7 @@
 
 import pytest
 
-from diff_cover.diff_quality_tool import main, parse_quality_args
+from dcov.diff_quality_tool import main, parse_quality_args
 
 
 def test_parse_with_html_report():

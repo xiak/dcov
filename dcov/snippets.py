@@ -13,7 +13,7 @@ from pygments.lexers import guess_lexer_for_filename
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
-from diff_cover.git_path import GitPathTool
+from dcov.git_path import GitPathTool
 
 
 class Snippet:

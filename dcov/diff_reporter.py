@@ -7,7 +7,7 @@ import os
 import re
 from abc import ABC, abstractmethod
 
-from diff_cover.git_diff import GitDiffError
+from dcov.git_diff import GitDiffError
 
 
 class BaseDiffReporter(ABC):

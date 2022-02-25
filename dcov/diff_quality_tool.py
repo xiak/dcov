@@ -10,10 +10,10 @@ import sys
 
 import pluggy
 
-import diff_cover
-from diff_cover import hookspecs
-from diff_cover.config_parser import Tool, get_config
-from diff_cover.diff_cover_tool import (
+import dcov
+from dcov import hookspecs
+from dcov.config_parser import Tool, get_config
+from dcov.diff_cover_tool import (
     COMPARE_BRANCH_HELP,
     CONFIG_FILE_HELP,
     CSS_FILE_HELP,
@@ -29,23 +29,23 @@ from diff_cover.diff_cover_tool import (
     MARKDOWN_REPORT_HELP,
     QUIET_HELP,
 )
-from diff_cover.diff_reporter import GitDiffReporter
-from diff_cover.git_diff import GitDiffTool
-from diff_cover.git_path import GitPathTool
-from diff_cover.report_generator import (
+from dcov.diff_reporter import GitDiffReporter
+from dcov.git_diff import GitDiffTool
+from dcov.git_path import GitPathTool
+from dcov.report_generator import (
     HtmlQualityReportGenerator,
     JsonReportGenerator,
     MarkdownQualityReportGenerator,
     StringQualityReportGenerator,
 )
-from diff_cover.violationsreporters.base import QualityReporter
-from diff_cover.violationsreporters.java_violations_reporter import (
+from dcov.violationsreporters.base import QualityReporter
+from dcov.violationsreporters.java_violations_reporter import (
     CheckstyleXmlDriver,
     FindbugsXmlDriver,
     PmdXmlDriver,
     checkstyle_driver,
 )
-from diff_cover.violationsreporters.violations_reporter import (
+from dcov.violationsreporters.violations_reporter import (
     CppcheckDriver,
     EslintDriver,
     PylintDriver,
@@ -96,7 +96,7 @@ def parse_quality_args(argv):
 
     where `HTML_REPORT` and `CSS_FILE` are paths.
     """
-    parser = argparse.ArgumentParser(description=diff_cover.QUALITY_DESCRIPTION)
+    parser = argparse.ArgumentParser(description=dcov.QUALITY_DESCRIPTION)
 
     parser.add_argument(
         "--violations", metavar="TOOL", type=str, help=VIOLATION_CMD_HELP, required=True
@@ -181,7 +181,7 @@ def parse_quality_args(argv):
     parser.add_argument(
         "--version",
         action="version",
-        version=f"diff-quality {diff_cover.VERSION}",
+        version=f"diff-quality {dcov.VERSION}",
     )
     parser.add_argument(
         "--ignore-whitespace",

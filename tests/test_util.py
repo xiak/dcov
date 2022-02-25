@@ -1,6 +1,6 @@
 import sys
 
-from diff_cover import util
+from dcov import util
 
 
 def test_to_unix_path():

@@ -11,10 +11,10 @@ from subprocess import Popen
 
 import pytest
 
-from diff_cover import diff_cover_tool, diff_quality_tool
-from diff_cover.command_runner import CommandError
-from diff_cover.git_path import GitPathTool
-from diff_cover.violationsreporters.base import QualityDriver
+from dcov import diff_cover_tool, diff_quality_tool
+from dcov.command_runner import CommandError
+from dcov.git_path import GitPathTool
+from dcov.violationsreporters.base import QualityDriver
 from tests.helpers import fixture_path
 
 

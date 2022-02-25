@@ -6,8 +6,8 @@ from textwrap import dedent
 
 import pytest
 
-from diff_cover.diff_reporter import BaseDiffReporter
-from diff_cover.report_generator import (
+from dcov.diff_reporter import BaseDiffReporter
+from dcov.report_generator import (
     BaseReportGenerator,
     HtmlReportGenerator,
     JsonReportGenerator,
@@ -15,7 +15,7 @@ from diff_cover.report_generator import (
     StringReportGenerator,
     TemplateReportGenerator,
 )
-from diff_cover.violationsreporters.violations_reporter import (
+from dcov.violationsreporters.violations_reporter import (
     BaseViolationReporter,
     Violation,
 )

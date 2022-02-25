@@ -5,18 +5,18 @@ import os
 import sys
 import xml.etree.ElementTree as etree
 
-from diff_cover import DESCRIPTION, VERSION
-from diff_cover.config_parser import Tool, get_config
-from diff_cover.diff_reporter import GitDiffReporter
-from diff_cover.git_diff import GitDiffTool
-from diff_cover.git_path import GitPathTool
-from diff_cover.report_generator import (
+from dcov import DESCRIPTION, VERSION
+from dcov.config_parser import Tool, get_config
+from dcov.diff_reporter import GitDiffReporter
+from dcov.git_diff import GitDiffTool
+from dcov.git_path import GitPathTool
+from dcov.report_generator import (
     HtmlReportGenerator,
     JsonReportGenerator,
     MarkdownReportGenerator,
     StringReportGenerator,
 )
-from diff_cover.violationsreporters.violations_reporter import XmlCoverageReporter
+from dcov.violationsreporters.violations_reporter import XmlCoverageReporter
 
 HTML_REPORT_HELP = "Diff coverage HTML output"
 JSON_REPORT_HELP = "Diff coverage JSON output"

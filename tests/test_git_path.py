@@ -4,7 +4,7 @@
 
 import pytest
 
-from diff_cover.git_path import GitPathTool
+from dcov.git_path import GitPathTool
 
 
 @pytest.fixture(autouse=True)

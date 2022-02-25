@@ -2,7 +2,7 @@
 
 import pytest
 
-from diff_cover.diff_cover_tool import parse_coverage_args
+from dcov.diff_cover_tool import parse_coverage_args
 
 
 def test_parse_with_html_report():

@@ -4,8 +4,8 @@
 
 import xml.etree.ElementTree as etree
 
-from diff_cover.git_path import GitPathTool
-from diff_cover.violationsreporters.violations_reporter import XmlCoverageReporter
+from dcov.git_path import GitPathTool
+from dcov.violationsreporters.violations_reporter import XmlCoverageReporter
 
 
 # https://github.com/Bachmann1234/diff_cover/issues/190

@@ -5,7 +5,7 @@ import sys
 from abc import ABC, abstractmethod
 from collections import defaultdict, namedtuple
 
-from diff_cover.command_runner import execute, run_command_for_code
+from dcov.command_runner import execute, run_command_for_code
 
 Violation = namedtuple("Violation", "line, message")
 

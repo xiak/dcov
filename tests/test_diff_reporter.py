@@ -9,8 +9,8 @@ from textwrap import dedent
 
 import pytest
 
-from diff_cover.diff_reporter import GitDiffReporter
-from diff_cover.git_diff import GitDiffError, GitDiffTool
+from dcov.diff_reporter import GitDiffReporter
+from dcov.git_diff import GitDiffError, GitDiffTool
 from tests.helpers import git_diff_output, line_numbers
 
 

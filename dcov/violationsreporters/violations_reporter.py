@@ -8,10 +8,10 @@ import os.path
 import re
 from collections import defaultdict
 
-from diff_cover import util
-from diff_cover.command_runner import run_command_for_code
-from diff_cover.git_path import GitPathTool
-from diff_cover.violationsreporters.base import (
+from dcov import util
+from dcov.command_runner import run_command_for_code
+from dcov.git_path import GitPathTool
+from dcov.violationsreporters.base import (
     BaseViolationReporter,
     QualityDriver,
     RegexBasedDriver,

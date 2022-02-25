@@ -7,8 +7,8 @@ import os
 import pytest
 from pygments.token import Token
 
-from diff_cover.git_path import GitPathTool
-from diff_cover.snippets import Snippet
+from dcov.git_path import GitPathTool
+from dcov.snippets import Snippet
 from tests.helpers import fixture_path, load_fixture
 
 SRC_TOKENS = [

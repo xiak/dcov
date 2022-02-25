@@ -8,7 +8,7 @@ from gettext import gettext, ngettext
 
 from jinja2 import Environment, PackageLoader
 
-from diff_cover.snippets import Snippet
+from dcov.snippets import Snippet
 
 
 class DiffViolations:
