@@ -181,7 +181,7 @@ def parse_quality_args(argv):
     parser.add_argument(
         "--version",
         action="version",
-        version=f"diff-quality {dcov.VERSION}",
+        version=f"dcov-quality {dcov.VERSION}",
     )
     parser.add_argument(
         "--ignore-whitespace",

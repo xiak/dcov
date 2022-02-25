@@ -43,7 +43,6 @@ def execute(command, exit_codes=None):
     stderr = _ensure_unicode(stderr)
     if process.returncode not in exit_codes:
         raise CommandError(stderr)
-
     return _ensure_unicode(stdout), stderr
 
 

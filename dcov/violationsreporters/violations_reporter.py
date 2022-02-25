@@ -109,11 +109,11 @@ class XmlCoverageReporter(BaseViolationReporter):
 
         If file is not present in `xml_document`, return None
         """
-
         files = [
             file_tree
             for file_tree in xml_document.findall(".//file")
-            if GitPathTool.relative_path(file_tree.get("path")) == src_path
+            if GitPathTool.relative_path(file_tree.get("name")) == src_path
+            # if GitPathTool.compare_path(file_tree.get("name"), src_path)
         ]
         if not files:
             return None

@@ -61,7 +61,12 @@ def parse_coverage_args(argv):
     """
     parser = argparse.ArgumentParser(description=DESCRIPTION)
 
-    parser.add_argument("coverage_xml", type=str, help=COVERAGE_XML_HELP, nargs="+")
+    parser.add_argument(
+        "--coverage_xml", 
+        type=str, 
+        help=COVERAGE_XML_HELP, 
+        nargs="+"
+    )
 
     parser.add_argument(
         "--html-report",
@@ -144,7 +149,7 @@ def parse_coverage_args(argv):
         help=DIFF_RANGE_NOTATION_HELP,
     )
 
-    parser.add_argument("--version", action="version", version=f"diff-cover {VERSION}")
+    parser.add_argument("--version", action="version", version=f"dcov {VERSION}")
 
     parser.add_argument(
         "--ignore-whitespace",
@@ -178,8 +183,8 @@ def parse_coverage_args(argv):
 
 
 def generate_coverage_report(
-    coverage_xml,
     compare_branch,
+    coverage_xml=None,
     html_report=None,
     css_file=None,
     json_report=None,
@@ -205,6 +210,16 @@ def generate_coverage_report(
         include_untracked=include_untracked,
         exclude=exclude,
     )
+
+    if not coverage_xml:
+        for src in diff.src_paths_changed():
+            line_list = diff.lines_changed(src)
+            changed_lines = len(line_list)
+            if changed_lines < 1:
+                continue
+            lines = StringReportGenerator.combine_adjacent_lines([line for line in line_list])
+            print("+ {} ({} lines): {} ".format(src, changed_lines, ", ".join(lines)))
+        return 0
 
     xml_roots = [etree.parse(xml_root) for xml_root in coverage_xml]
     coverage = XmlCoverageReporter(xml_roots, src_roots)
@@ -257,9 +272,9 @@ def main(argv=None, directory=None):
 
     GitPathTool.set_cwd(directory)
     fail_under = arg_dict.get("fail_under")
-    percent_covered = generate_coverage_report(
-        arg_dict["coverage_xml"],
+    percent_covered = generate_coverage_report(  
         arg_dict["compare_branch"],
+        coverage_xml=arg_dict["coverage_xml"],
         html_report=arg_dict["html_report"],
         json_report=arg_dict["json_report"],
         markdown_report=arg_dict["markdown_report"],

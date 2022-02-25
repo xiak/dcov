@@ -241,7 +241,6 @@ class GitDiffReporter(BaseDiffReporter):
                             for line in result_dict.get(src_path, [])
                             if line not in deleted_lines
                         ] + added_lines
-
             # Eliminate repeats and order line numbers
             for (src_path, lines) in result_dict.items():
                 result_dict[src_path] = self._unique_ordered_lines(lines)
@@ -309,12 +308,13 @@ class GitDiffReporter(BaseDiffReporter):
             # or "diff --cc" (in the case of a merge conflict)
             # then it is the start of a new source file
             if line.startswith("diff --git") or line.startswith("diff --cc"):
-
+          
                 # Retrieve the name of the source file
                 src_path = self._parse_source_line(line)
 
                 # Create an entry for the source file, if we don't
                 # already have one.
+
                 if src_path not in source_dict:
                     source_dict[src_path] = []
 
