@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dcov"
-version = "1.0.2"
+version = "1.0.3"
 description = "Modify output info when no compare-branch provided"
 authors = ["See Contributors"]
 homepage = "https://github.com/xiak/dcov"
