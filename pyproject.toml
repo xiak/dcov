@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "dcov"
-version = "1.0.1"
-description = "Add some requirement for me, this is the first ver for me"
+version = "1.0.2"
+description = "Modify output info when no compare-branch provided"
 authors = ["See Contributors"]
 homepage = "https://github.com/xiak/dcov"
 repository = "https://github.com/xiak/dcov"
