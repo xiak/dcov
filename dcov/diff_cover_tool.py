@@ -216,13 +216,13 @@ def generate_coverage_report(
         total_lines = 0
         total_files = 0
         for src in diff.src_paths_changed():
-            total_files += 1
             line_list = diff.lines_changed(src)
             changed_lines = len(line_list)
             if changed_lines < 1:
                 continue
             lines = StringReportGenerator.combine_adjacent_lines([line for line in line_list])
             raw_output = "{}\n{} ({} lines): {}".format(raw_output, src, changed_lines, ", ".join(lines))
+            total_files += 1
             total_lines += changed_lines
         print("Diff changes between {} and HEAD\nchanged files: {}, changed lines: {}\n{}".format(compare_branch, total_files, total_lines, raw_output))
         return 0
