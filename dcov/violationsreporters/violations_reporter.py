@@ -2,6 +2,7 @@
 Classes for querying the information in a test coverage report.
 """
 
+from email import message
 import itertools
 import os
 import os.path
@@ -24,14 +25,16 @@ class XmlCoverageReporter(BaseViolationReporter):
     Query information from a Cobertura|Clover|JaCoCo XML coverage report.
     """
 
-    def __init__(self, xml_roots, src_roots=None):
+    def __init__(self, xml_roots, diff_reporter, src_roots=None):
         """
-        Load the XML coverage report represented
+        :param xml_roots Load the XML coverage report represented
         by the cElementTree with root element `xml_root`.
+        :param  git diff reporter, used to compare with content of xml report
+        :src_root 
         """
         super().__init__("XML")
         self._xml_roots = xml_roots
-
+        self._diff_reporter = diff_reporter
         # Create a dict to cache violations dict results
         # Keys are source file paths, values are output of `violations()`
         self._info_cache = defaultdict(list)
@@ -62,13 +65,16 @@ class XmlCoverageReporter(BaseViolationReporter):
         # and src_path is `other_package/some_file.py`
         # search for `/home/user/work/diff-cover/other_package/some_file.py`
         src_abs_path = util.to_unix_path(GitPathTool.absolute_path(src_path))
-
+        
         # cobertura sometimes provides the sources for the measurements
         # within it. If we have that we outta use it
         sources = xml_document.findall("sources/source")
         sources = [source.text for source in sources if source.text]
         classes = xml_document.findall(".//class") or []
+    
+        # if cannot find src_path in report
 
+        # if find src_path in report
         return (
             [
                 clazz
@@ -183,6 +189,8 @@ class XmlCoverageReporter(BaseViolationReporter):
             # we take set union each time and can just start with the empty set
             measured = set()
 
+            changed_lines = self._diff_reporter.lines_changed(src_path)
+
             # Loop through the files that contain the xml roots
             for xml_document in self._xml_roots:
                 if xml_document.findall(".[@clover]"):
@@ -206,44 +214,48 @@ class XmlCoverageReporter(BaseViolationReporter):
                     )
                     _number = "number"
                     _hits = "hits"
+
+                # if cannot find data in report file
+                if changed_lines is None:
+                    continue
+                
                 if line_nodes is None:
+                    measured = set(changed_lines)
+                    violations = {
+                        Violation(int(line), None)
+                        for line in measured
+                    }
                     continue
 
                 # First case, need to define violations initially
-                if violations is None:
-                    violations = {
-                        Violation(int(line.get(_number)), None)
-                        for line in line_nodes
-                        if int(line.get(_hits, 0)) == 0
-                    }
-
-                # If we already have a violations set,
-                # take the intersection of the new
-                # violations set and its old self
-                else:
-                    violations = violations & {
-                        Violation(int(line.get(_number)), None)
-                        for line in line_nodes
-                        if int(line.get(_hits, 0)) == 0
-                    }
-
-                # Measured is the union of itself and the new measured
                 measured = measured | {int(line.get(_number)) for line in line_nodes}
+                # difference between changed_lines and line_nodes
+                df = set(changed_lines).difference(measured)
+                # intersection between changed_lines and line_nodes
+                it = set(changed_lines).intersection(measured)
+                violations = {
+                    Violation(int(line), None)
+                    for line in df
+                }
+                violations = violations.union({
+                    Violation(int(line.get(_number)), None)
+                    for line in line_nodes
+                    if line.get(_number) in it and int(line.get(_hits, 0)) == 0
+                })
+                measured = df.union(it)
 
             # If we don't have any information about the source file,
-            # don't report any violations
+            # don't report any violations 
             if violations is None:
                 violations = set()
-
+ 
             self._info_cache[src_path] = (violations, measured)
 
     def violations(self, src_path):
         """
         See base class comments.
         """
-
         self._cache_file(src_path)
-
         # Yield all lines not covered
         return self._info_cache[src_path][0]
 

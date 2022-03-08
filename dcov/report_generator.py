@@ -20,15 +20,19 @@ class DiffViolations:
         self.lines = {violation.line for violation in violations}.intersection(
             diff_lines
         )
-
+        # self.lines = set(diff_lines).difference(
+        #     self.lines
+        # )
         self.violations = {
-            violation for violation in violations if violation.line in self.lines
+            # violation for violation in violations if violation.line in self.lines
+            violation for violation in violations
         }
 
         # By convention, a violation reporter
         # can return `None` to indicate that all lines are "measured"
         # by default.  This is an optimization to avoid counting
         # lines in all the source files.
+        
         if measured_lines is None:
             self.measured_lines = set(diff_lines)
         else:
@@ -93,17 +97,18 @@ class BaseReportGenerator(ABC):
         If we have no coverage information for `src_path`, returns None
         """
         diff_violations = self._diff_violations().get(src_path)
-
         if diff_violations is None:
             return None
 
+        if len(diff_violations.lines) == 0:
+            return 0 
+        
         # Protect against a divide by zero
         num_measured = len(diff_violations.measured_lines)
         if num_measured > 0:
             num_uncovered = len(diff_violations.lines)
             return 100 - float(num_uncovered) / num_measured * 100
-
-        return None
+        return 0
 
     def violation_lines(self, src_path):
         """
@@ -126,7 +131,6 @@ class BaseReportGenerator(ABC):
         Return the total number of lines in the diff for
         which we have coverage info.
         """
-
         return sum(
             [
                 len(summary.measured_lines)
@@ -139,7 +143,6 @@ class BaseReportGenerator(ABC):
         Returns the total number of lines in the diff
         that are in violation.
         """
-
         return sum(len(summary.lines) for summary in self._diff_violations().values())
 
     def total_percent_covered(self):
@@ -172,6 +175,7 @@ class BaseReportGenerator(ABC):
 
         To make this efficient, we cache and reuse the result.
         """
+
         if not self._diff_violations_dict:
             self._diff_violations_dict = {
                 src_path: DiffViolations(
@@ -181,11 +185,11 @@ class BaseReportGenerator(ABC):
                 )
                 for src_path in self._diff.src_paths_changed()
             }
+        
         return self._diff_violations_dict
 
     def report_dict(self):
         src_stats = {src: self._src_path_stats(src) for src in self.src_paths()}
-
         return {
             "report_name": self.coverage_report_name(),
             "diff_name": self.diff_report_name(),
@@ -204,7 +208,6 @@ class BaseReportGenerator(ABC):
         # Find violation lines
         violation_lines = self.violation_lines(src_path)
         violations = sorted(self._diff_violations()[src_path].violations)
-
         return {
             "percent_covered": self.percent_covered(src_path),
             "violation_lines": violation_lines,
@@ -348,7 +351,6 @@ class TemplateReportGenerator(BaseReportGenerator):
     def _src_path_stats(self, src_path):
 
         stats = super()._src_path_stats(src_path)
-
         # Load source snippets (if the report will display them)
         # If we cannot load the file, then fail gracefully
         formatted_snippets = {"html": [], "markdown": [], "terminal": []}

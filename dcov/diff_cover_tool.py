@@ -228,7 +228,7 @@ def generate_coverage_report(
         return 0
 
     xml_roots = [etree.parse(xml_root) for xml_root in coverage_xml]
-    coverage = XmlCoverageReporter(xml_roots, src_roots)
+    coverage = XmlCoverageReporter(xml_roots, diff, src_roots)
 
     # Build a report generator
     if html_report is not None:
