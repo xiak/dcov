@@ -233,7 +233,7 @@ class XmlCoverageReporter(BaseViolationReporter):
                 df = set(changed_lines).difference(measured)
                 # intersection between changed_lines and line_nodes
                 it = set(changed_lines).intersection(measured)
-                print(changed_lines, measured, df, "IT:", it)
+
                 violations = {
                     Violation(int(line), None)
                     for line in df
