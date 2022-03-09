@@ -233,6 +233,7 @@ class XmlCoverageReporter(BaseViolationReporter):
                 df = set(changed_lines).difference(measured)
                 # intersection between changed_lines and line_nodes
                 it = set(changed_lines).intersection(measured)
+                print(changed_lines, measured, df, "IT:", it)
                 violations = {
                     Violation(int(line), None)
                     for line in df
@@ -240,7 +241,9 @@ class XmlCoverageReporter(BaseViolationReporter):
                 violations = violations.union({
                     Violation(int(line.get(_number)), None)
                     for line in line_nodes
-                    if line.get(_number) in it and int(line.get(_hits, 0)) == 0
+                    if line.get(_number) in it 
+                    or int(line.get(_number)) in it 
+                    and int(line.get(_hits, 0)) == 0
                 })
                 measured = df.union(it)
 
@@ -248,7 +251,6 @@ class XmlCoverageReporter(BaseViolationReporter):
             # don't report any violations 
             if violations is None:
                 violations = set()
- 
             self._info_cache[src_path] = (violations, measured)
 
     def violations(self, src_path):

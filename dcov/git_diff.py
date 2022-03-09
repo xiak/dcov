@@ -99,9 +99,7 @@ class GitDiffTool:
         Raises a `GitDiffError` if `git diff` outputs anything
         to stderr.
         """
-        return execute(self._default_git_args + self._default_diff_args + ["--cached"])[
-            0
-        ]
+        return execute(self._default_git_args + self._default_diff_args + ["--cached"])[0]
 
     def untracked(self):
         """Return the untracked files."""
