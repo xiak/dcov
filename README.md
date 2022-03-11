@@ -97,4 +97,4 @@ poetry run dcov --version
 
 本工具原作者为 [Bachmann1234](https://github.com/Bachmann1234/diff_cover)
 
-dcov 是在其原工具基础上加入一些新特性，以及修改了原来的覆盖率计算方法。
+dcov 在原工具基础上加入一些新特性，以及修改了原来的覆盖率计算方法。

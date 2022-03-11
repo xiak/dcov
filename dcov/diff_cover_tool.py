@@ -21,7 +21,7 @@ from dcov.violationsreporters.violations_reporter import XmlCoverageReporter
 HTML_REPORT_HELP = "Diff coverage HTML output"
 JSON_REPORT_HELP = "Diff coverage JSON output"
 MARKDOWN_REPORT_HELP = "Diff coverage Markdown output"
-COMPARE_BRANCH_HELP = "Branch to compare"
+COMPARE_BRANCH_HELP = "The branch which to be compared"
 CSS_FILE_HELP = "Write CSS into an external file"
 FAIL_UNDER_HELP = (
     "Returns an error code if coverage or quality score is below this value"
@@ -62,10 +62,17 @@ def parse_coverage_args(argv):
     parser = argparse.ArgumentParser(description=DESCRIPTION)
 
     parser.add_argument(
-        "--coverage_xml", 
-        type=str, 
-        help=COVERAGE_XML_HELP, 
-        nargs="+"
+        "branch",
+        metavar="BRANCH",
+        type=str,
+        help=COMPARE_BRANCH_HELP,
+    )
+
+    parser.add_argument(
+        "--coverage-xml", 
+        metavar="FILENAME",
+        nargs="+",
+        help=COVERAGE_XML_HELP
     )
 
     parser.add_argument(
@@ -98,13 +105,6 @@ def parse_coverage_args(argv):
         metavar="FILENAME",
         type=str,
         help=CSS_FILE_HELP,
-    )
-
-    parser.add_argument(
-        "--compare-branch",
-        metavar="BRANCH",
-        type=str,
-        help=COMPARE_BRANCH_HELP,
     )
 
     parser.add_argument(
@@ -168,7 +168,6 @@ def parse_coverage_args(argv):
 
     defaults = {
         "show_uncovered": False,
-        "compare_branch": "origin/main",
         "fail_under": 0,
         "ignore_staged": False,
         "ignore_unstaged": False,
@@ -227,6 +226,7 @@ def generate_coverage_report(
         print("Diff changes between {} and HEAD\nchanged files: {}, changed lines: {}\n{}".format(compare_branch, total_files, total_lines, raw_output))
         return 0
 
+    print(coverage_xml)
     xml_roots = [etree.parse(xml_root) for xml_root in coverage_xml]
     coverage = XmlCoverageReporter(xml_roots, diff, src_roots)
 
@@ -279,7 +279,7 @@ def main(argv=None, directory=None):
     GitPathTool.set_cwd(directory)
     fail_under = arg_dict.get("fail_under")
     percent_covered = generate_coverage_report(  
-        arg_dict["compare_branch"],
+        arg_dict["branch"],
         coverage_xml=arg_dict["coverage_xml"],
         html_report=arg_dict["html_report"],
         json_report=arg_dict["json_report"],
