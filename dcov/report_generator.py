@@ -97,7 +97,6 @@ class BaseReportGenerator(ABC):
         If we have no coverage information for `src_path`, returns None
         """
         diff_violations = self._diff_violations().get(src_path)
-        print("==", diff_violations.violations, diff_violations.measured_lines,  diff_violations.lines)
         if diff_violations is None:
             return None
 
