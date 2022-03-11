@@ -226,7 +226,7 @@ def generate_coverage_report(
         print("Diff changes between {} and HEAD\nchanged files: {}, changed lines: {}\n{}".format(compare_branch, total_files, total_lines, raw_output))
         return 0
 
-    print(coverage_xml)
+    print("Coverage XML: ", coverage_xml)
     xml_roots = [etree.parse(xml_root) for xml_root in coverage_xml]
     coverage = XmlCoverageReporter(xml_roots, diff, src_roots)
 

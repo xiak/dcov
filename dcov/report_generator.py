@@ -97,14 +97,13 @@ class BaseReportGenerator(ABC):
         If we have no coverage information for `src_path`, returns None
         """
         diff_violations = self._diff_violations().get(src_path)
+        print("==", diff_violations.violations, diff_violations.measured_lines,  diff_violations.lines)
         if diff_violations is None:
             return None
 
-        if len(diff_violations.lines) == 0:
-            return 0 
-        
         # Protect against a divide by zero
         num_measured = len(diff_violations.measured_lines)
+
         if num_measured > 0:
             num_uncovered = len(diff_violations.lines)
             return 100 - float(num_uncovered) / num_measured * 100
@@ -185,7 +184,7 @@ class BaseReportGenerator(ABC):
                 )
                 for src_path in self._diff.src_paths_changed()
             }
-        
+
         return self._diff_violations_dict
 
     def report_dict(self):

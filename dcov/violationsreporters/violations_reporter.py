@@ -245,12 +245,15 @@ class XmlCoverageReporter(BaseViolationReporter):
                     or int(line.get(_number)) in it 
                     and int(line.get(_hits, 0)) == 0
                 })
-                measured = df.union(it)
 
+                measured = df.union(it)
+                
             # If we don't have any information about the source file,
             # don't report any violations 
+            # or if the file has not violations
             if violations is None:
                 violations = set()
+            
             self._info_cache[src_path] = (violations, measured)
 
     def violations(self, src_path):
