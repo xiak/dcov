@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "dcov"
-version = "1.0.7"
-description = "Modify diff algorithm"
+version = "1.0.8"
+description = "Modify param name"
 authors = ["See Contributors"]
 homepage = "https://github.com/xiak/dcov"
 repository = "https://github.com/xiak/dcov"
