@@ -215,45 +215,75 @@ class XmlCoverageReporter(BaseViolationReporter):
                     _number = "number"
                     _hits = "hits"
 
-                # if cannot find data in report file
-                if changed_lines is None:
-                    continue
+            #     # if cannot find data in report file
+            #     if changed_lines is None:
+            #         continue
                 
+            #     if line_nodes is None:
+            #         measured = set(changed_lines)
+            #         violations = {
+            #             Violation(int(line), None)
+            #             for line in measured
+            #         }
+            #         continue
+
+            #     # First case, need to define violations initially
+            #     measured = measured | {int(line.get(_number)) for line in line_nodes}
+            #     # difference between changed_lines and line_nodes
+            #     df = set(changed_lines).difference(measured)
+            #     # intersection between changed_lines and line_nodes
+            #     it = set(changed_lines).intersection(measured)
+
+            #     violations = {
+            #         Violation(int(line), None)
+            #         for line in df
+            #     }
+            #     violations = violations.union({
+            #         Violation(int(line.get(_number)), None)
+            #         for line in line_nodes
+            #         if line.get(_number) in it 
+            #         or int(line.get(_number)) in it 
+            #         and int(line.get(_hits, 0)) == 0
+            #     })
+
+            #     measured = df.union(it)
+                
+            # # If we don't have any information about the source file,
+            # # don't report any violations 
+            # # or if the file has not violations
+            # if violations is None:
+            #     violations = set()
+            
+            # self._info_cache[src_path] = (violations, measured)
                 if line_nodes is None:
-                    measured = set(changed_lines)
-                    violations = {
-                        Violation(int(line), None)
-                        for line in measured
-                    }
                     continue
 
                 # First case, need to define violations initially
+                if violations is None:
+                    violations = {
+                        Violation(int(line.get(_number)), None)
+                        for line in line_nodes
+                        if int(line.get(_hits, 0)) == 0
+                    }
+
+                # If we already have a violations set,
+                # take the intersection of the new
+                # violations set and its old self
+                else:
+                    violations = violations & {
+                        Violation(int(line.get(_number)), None)
+                        for line in line_nodes
+                        if int(line.get(_hits, 0)) == 0
+                    }
+
+                # Measured is the union of itself and the new measured
                 measured = measured | {int(line.get(_number)) for line in line_nodes}
-                # difference between changed_lines and line_nodes
-                df = set(changed_lines).difference(measured)
-                # intersection between changed_lines and line_nodes
-                it = set(changed_lines).intersection(measured)
 
-                violations = {
-                    Violation(int(line), None)
-                    for line in df
-                }
-                violations = violations.union({
-                    Violation(int(line.get(_number)), None)
-                    for line in line_nodes
-                    if line.get(_number) in it 
-                    or int(line.get(_number)) in it 
-                    and int(line.get(_hits, 0)) == 0
-                })
-
-                measured = df.union(it)
-                
             # If we don't have any information about the source file,
-            # don't report any violations 
-            # or if the file has not violations
+            # don't report any violations
             if violations is None:
                 violations = set()
-            
+
             self._info_cache[src_path] = (violations, measured)
 
     def violations(self, src_path):

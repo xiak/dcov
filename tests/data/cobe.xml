@@ -7,7 +7,7 @@
   <packages>
     <package name="" line-rate="0" branch-rate="0" complexity="95">
       <classes>
-        <class name="App\Code" filename="dcov/report_generator.py" line-rate="0" branch-rate="0" complexity="3">
+        <class name="App\Code" filename="dcov/violationsreporters/violations_reporter.py" line-rate="0" branch-rate="0" complexity="3">
           <methods>
             <method name="reflClass" signature="" line-rate="0" branch-rate="0" complexity="1">
               <lines>
@@ -71,7 +71,7 @@
             <line number="243" hits="1"/>
             <line number="244" hits="0"/>
             <line number="245" hits="1"/>
-            <line number="246" hits="0"/>
+            <line number="262" hits="0"/>
             <line number="248" hits="100"/>
             <line number="252" hits="0"/>
             <line number="1217" hits="0"/>
