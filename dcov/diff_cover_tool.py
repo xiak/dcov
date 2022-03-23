@@ -210,6 +210,7 @@ def generate_coverage_report(
         exclude=exclude,
     )
 
+    # if not provide coverage xml
     if not coverage_xml:
         raw_output = ""
         total_lines = 0
@@ -223,7 +224,7 @@ def generate_coverage_report(
             raw_output = "{}\n{} ({} lines): {}".format(raw_output, src, changed_lines, ", ".join(lines))
             total_files += 1
             total_lines += changed_lines
-        print("Diff changes between {} and HEAD\nchanged files: {}, changed lines: {}\n{}".format(compare_branch, total_files, total_lines, raw_output))
+        print("Diff changes between branch {} and HEAD\nchanged files: {}, changed lines: {}\n{}".format(compare_branch, total_files, total_lines, raw_output))
         return 0
 
     xml_roots = [etree.parse(xml_root) for xml_root in coverage_xml]

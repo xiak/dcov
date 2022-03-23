@@ -192,8 +192,8 @@ class XmlCoverageReporter(BaseViolationReporter):
             changed_lines = self._diff_reporter.lines_changed(src_path)
 
             # Loop through the files that contain the xml roots
-            for xml_document in self._xml_roots:
-                if xml_document.findall(".[@clover]"):
+            for xml_document in self._xml_roots:     
+                if xml_document.findall(".[@clover]") or xml_document.findall(".[@generated]"):
                     # see etc/schema/clover.xsd at  https://bitbucket.org/atlassian/clover/src
                     line_nodes = self.get_src_path_line_nodes_clover(
                         xml_document, src_path
